@@ -43,6 +43,10 @@ local function findPlr(name)
     
 --------------------------------------player------------------------------
 
+  Tab2Section:NewButton("HitBox (on)", "ButtonInfo", function()
+       loadstring(game:HttpGet("https://pastebin.com/raw/yxgYaF9P"))()
+    end)
+    
 local Tab2Section = Tab3:NewSection("Player")
 
     Tab2Section:NewButton("Inf Jumps", "Enables Inf Jumps", function()
