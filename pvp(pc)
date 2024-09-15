@@ -1,4 +1,4 @@
-
+-- By
 local function findPlr(name)
     for _,v in pairs(game:GetService("Players"):GetPlayers()) do
         if string.find(v.Name, name) then
@@ -18,184 +18,143 @@ local function findPlr(name)
     end
     end
     
-    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-    local Window = Library.CreateLib("PETIE HUB(pvp)", "BloodTheme")
-     
-    -- Tabs
-     
-    local Tab1 = Window:NewTab("pvp")
-    local Tab2 = Window:NewTab("Teleport")
-    local Tab3 = Window:NewTab("Player")
-     
 
---------------------------------------teleport--------------------------
 
-    local Tab2Section = Tab2:NewSection("Teleport")
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 
-    Tab2Section:NewButton("Fire azul", "TP Fire azul", function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-527, 16, 783)
-    end)
+local win = DiscordLib:Window("discord library")
 
-    Tab2Section:NewButton("Safe", "Tp para SafeZone", function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(76, 3, 454)
-    end)
-    
---------------------------------------player------------------------------
+local serv = win:Server("Preview", "")
 
-local Tab2Section = Tab3:NewSection("Player")
+local Guidano = serv:Channel("All")
 
-    Tab2Section:NewButton("Inf Jumps", "Enables Inf Jumps", function()
-        local InfiniteJumpEnabled = true
-    game:GetService("UserInputService").JumpRequest:connect(function()
-        if InfiniteJumpEnabled then
-            game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+Guidano:Toggle("Kill Aura",false, function(bool)
+    _G.OnKa = (bool)
+
+    while _G.OnKa == true do      
+       wait()
+       for i,v in pairs(game.Players:GetChildren()) do
+        for i,p in pairs(game.Workspace:GetChildren()) do
+        if p.Name == v.Name and p.Name ~= game.Players.LocalPlayer.Name then
+        game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(p.Humanoid,1)
         end
-    end)
-    end)
-    
-    Tab2Section:NewSlider("Velocidade", "Sussy Speed", 100, 16, function(v)
-    while wait(0.01) do
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+        end
+       end 
     end
-    end)
-    
-    Tab2Section:NewSlider("Pulo", "Sussy Speed", 100, 30, function(v)
-    while wait(0.01) do
-        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
-    end
+
     end)
 
---------------------------------------PVP------------------------------
+local X1 = serv:Channel("1v1")
 
-    local Tab1Section = Tab1:NewSection("Pvp todos")
-    
-    Tab1Section:NewToggle("Kill aura", "ToggleInfo", function(state)
-        if state then
-    getgenv().ka = true
-    
-    while ka == true do
-    for i,v in pairs(game.Players:GetChildren()) do
-       for i,p in pairs(game.Workspace:GetChildren()) do
-       if p.Name == v.Name and p.Name ~= game.Players.LocalPlayer.Name then
-       game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(p.Humanoid,1)
+X1:Textbox("", "Player", true, function(focusLost)
+    if (focusLost) then
+        print("Searching " .. focusLost)
+        local Player = findPlr(focusLost)
+        print("Found " .. tostring(Player))
+        local Player = game.Workspace:FindFirstChild(Player.Name)
+        damagedplayer = tostring(Player)
        end
-       end
-      end
-        wait()
+end)
+
+X1:Toggle("LoopDano",false, function(bool)
+    _G.P = (bool)
+
+    while _G.P == true do      
+       wait()
+       damageplayer(damagedplayer)
     end
-        else
-    getgenv().ka = false
-        end
+
     end)
-    --[[
-    Tab1Section:NewButton("HitBox (on)", "ButtonInfo", function()
-    _G.HeadSize = 20
-    _G.Disabled = true
+
+    local matilha = serv:Channel("cla")
+
+matilha:Textbox("", "NameClan", true, function(t)
+    local args = {
+        [1] = {
+            ["teamIcon"] = "",
+            ["action"] = "accepted",
+            ["teamName"] = (t)
+        }
+    }
     
-    game:GetService('RunService').RenderStepped:connect(function()
-    if _G.Disabled then
-    for i,v in next, game:GetService('Players'):GetPlayers() do
-    if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-    pcall(function()
-    v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-    v.Character.HumanoidRootPart.Transparency = 0.7
-    v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Marron")
-    v.Character.HumanoidRootPart.Material = "Neon"
-    v.Character.HumanoidRootPart.CanCollide = false
-    end)
-    end
-    end
-    end
-    end)
-    end)
-    
-    Tab1Section:NewButton("HitBox (Off)", "ButtonInfo", function()
-    _G.HeadSize = 20
-    _G.Disabled = false
-    
-    game:GetService('RunService').RenderStepped:connect(function()
-    if _G.Disabled then
-    for i,v in next, game:GetService('Players'):GetPlayers() do
-    if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-    pcall(function()
-    v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-    v.Character.HumanoidRootPart.Transparency = 0.7
-    v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Marron")
-    v.Character.HumanoidRootPart.Material = "Neon"
-    v.Character.HumanoidRootPart.CanCollide = false
-    end)
-    end
-    end
-    end
-    end)
-    end)
-    ]]
-    local Tab1Section = Tab1:NewSection("Damage")
-    
-    Tab1Section:NewTextBox("Nick do player", "TextboxInfo", function(focusLost)
-          if (focusLost) then
-           print("Searching " .. focusLost)
-           local Player = findPlr(focusLost)
-           print("Found " .. tostring(Player))
-           local Player = game.Workspace:FindFirstChild(Player.Name)
-           damagedplayer = tostring(Player)
-          end
-      
-    end)
-    
-    Tab1Section:NewToggle("Loop Dano", "ToggleInfo", function(state)
-        if state then
-    getgenv().dm = true
-    
-    while dm == true do
-      damageplayer(damagedplayer)
-        wait()
-    end
-        else
-    getgenv().dm = false
-        end
-    end)
-    
-    local Tab1Section = Tab1:NewSection("Segurar")
-    
-    Tab1Section:NewTextBox("Segurar Player", "TextboxInfo", function(focusLost)
-          if (focusLost) then
-            for i,v in pairs(game.Players:GetChildren()) do
-            if string.find(v.Name, focusLost) then
-           game:GetService("ReplicatedStorage").RideEvents.acceptEvent:FireServer(v.Name)
-          end
-      end
-    
-    end
-    end)
-    
-    local Tab1Section = Tab1:NewSection("Matilha")
-    
-    
-    Tab1Section:NewButton("Mostrar matilhas", "ButtonInfo", function()
-     for i,v in pairs(game.Workspace.Teams:GetChildren()) do
-            print("Matilhas:")
-            print(v.Name)
-        end
-            game:GetService("StarterGui"):SetCore("SendNotification",{  
-                Title = "!!Matilha aviso!!",     
-                Text = "aperte 'f9' ou digite no chat '/console'",
-                Icon = "",
-                Duration = 5,
-                Color = Success
-    })
-    end)
-    
-    Tab1Section:NewTextBox("Entrar na matilha", "TextboxInfo", function(focusLost)
-          if (focusLost) then
-            for i,v in pairs(game.Workspace.Teams:GetChildren()) do
-            if string.find(focusLost, v.Name) then
-           game:GetService("ReplicatedStorage").acceptedEvent:FireServer(v.Name)
-          end
-      end
-    end
+    game:GetService("ReplicatedStorage"):WaitForChild("invitationEvent"):FireServer(unpack(args))
+end)
+
+
+--[[
+local lbls = serv:Channel("Labels")
+
+lbls:Label("This is just a label.")
+
+local bnds = serv:Channel("Binds")
+
+bnds:Bind("Kill bind", Enum.KeyCode.RightShift, function()
+print("Killed everyone!")
+end)
+
+serv:Channel("by dawid#7205")
+
+
+win:Server("Main", "http://www.roblox.com/asset/?id=6031075938")
+
+local sldrs = serv:Channel("Sliders")
+
+local sldr = sldrs:Slider("Slide me!", 0, 1000, 400, function(t)
+print(t)
+end)
+
+sldrs:Button("Change to 50", function()
+sldr:Change(50)
+end)
+
+local drops = serv:Channel("Dropdowns")
+
+
+local drop = drops:Dropdown("Pick me!",{"Option 1","Option 2","Option 3","Option 4","Option 5"}, function(bool)
+print(bool)
+end)
+
+drops:Button("Clear", function()
+drop:Clear()
+end)
+
+drops:Button("Add option", function()
+drop:Add("Option")
+end)
+
+local clrs = serv:Channel("Colorpickers")
+
+clrs:Colorpicker("ESP Color", Color3.fromRGB(255,1,1), function(t)
+print(t)
+end)
+
+X1:Button("Kill all", function()
+DiscordLib:Notification("Notification", "Killed everyone!", "Okay!")
+end)
+
+X1:Seperator()
+
+Buttons:Button("", function()
     
     end)
-    
-    
-    
+
+local args = {
+    [1] = {
+        ["teamIcon"] = "",
+        ["action"] = "accepted",
+        ["teamName"] = "..."
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("invitationEvent"):FireServer(unpack(args))
+
+]]
+--[[
+local args = {
+    [1] = game:GetService("Players"):WaitForChild("gytttrs7re"),
+    [2] = "request_accepted"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("CarryEvent"):FireServer(unpack(args))
+
+]]
